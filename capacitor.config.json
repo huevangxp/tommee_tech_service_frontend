@@ -1,0 +1,6 @@
+{
+  "appId": "com.icanjob",
+  "appName": "icanjob",
+  "webDir": "dist",
+  "bundledWebRuntime": false
+}
