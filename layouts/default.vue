@@ -45,14 +45,14 @@
           height="40"
           class="white pl-4"
         >
-          <template v-slot:append>
+          <template #append>
             <v-btn icon class="mb-8">
               <v-icon>mdi-magnify</v-icon>
             </v-btn>
           </template>
         </v-text-field>
         <v-spacer />
-        <v-btn @click="drawer = !drawer" icon dark>
+        <v-btn icon dark @click="drawer = !drawer" >
           <v-icon> mdi-menu </v-icon>
         </v-btn>
       </v-app-bar>
@@ -88,7 +88,8 @@
       </v-footer>
       <!-- </v-app-bar> -->
     </v-app>
-    <v-app dark v-else>
+    <div v-else>
+      <v-app :dark="sun">
       <v-navigation-drawer
         v-model="drawer"
         :mini-variant="miniVariant"
@@ -113,8 +114,8 @@
           </v-list-item>
         </v-list>
       </v-navigation-drawer>
-      <v-app-bar :clipped-left="clipped" fixed app color="info" elevation="0">
-        <v-app-bar-nav-icon @click.stop="drawer = !drawer" dark />
+      <v-app-bar :clipped-left="clipped" fixed app color="primary" elevation="0">
+        <v-app-bar-nav-icon dark @click.stop="drawer = !drawer"  />
         <v-spacer />
         <v-card-title class="white--text"> I CAN JOB</v-card-title>
         <v-spacer />
@@ -123,14 +124,19 @@
           dense
           hide-details="auto"
           class="white mr-3"
-          placeholder="Search"
+          label="Search"
         >
           <template #append>
-            <v-btn icon small>
+            <v-btn icon small color="primary">
               <v-icon>mdi-magnify</v-icon>
             </v-btn>
           </template>
         </v-text-field>
+        <v-btn icon dark class="ml-2 mr-2" @click="setTheme">
+            <v-icon>{{
+              sun  ? 'mdi-white-balance-sunny' : 'mdi-weather-night'
+            }}</v-icon>
+            </v-btn>
         <v-avatar>
           <v-img
             src="https://teachmint.storage.googleapis.com/profile_images/314390c4-a471-460b-807d-932c75f5f4d6.jpg"
@@ -154,6 +160,7 @@
       </v-navigation-drawer>
       <FooterPage />
     </v-app>
+    </div>
   </div>
 </template>
 
@@ -165,6 +172,7 @@ export default {
       clipped: true,
       drawer: false,
       fixed: false,
+      sun:false,
       items: [
         {
           icon: 'mdi-apps',
@@ -194,5 +202,13 @@ export default {
       title: 'Vuetify.js',
     }
   },
+  methods: {
+    setTheme() {
+      this.sun = !this.sun
+      this.$vuetify.theme.dark = this.sun
+      this.$cookies.set('mode', this.sun)
+      return this.sun
+    },
+  }
 }
 </script>

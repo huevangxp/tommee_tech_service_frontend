@@ -13,8 +13,7 @@
               hide-details="auto"
               type="text"
               placeholder="User Name"
-              append-icon="mdi-account"
-            >
+              append-icon="mdi-account">
             </v-text-field>
           </v-card-text>
           <v-card-text>

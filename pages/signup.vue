@@ -14,19 +14,24 @@
       <v-window v-model="step">
         <v-window-item :value="1">
           <v-card-text>
-            <v-text-field placeholder="User Name" outlined dense></v-text-field>
-            <v-text-field outlined dense placeholder="Position"></v-text-field>
             <v-text-field
+              v-model="user.username"
+              placeholder="User Name"
+              outlined
+              dense
+            ></v-text-field>
+            <v-text-field
+              v-model="user.position"
+              outlined
+              dense
+              placeholder="Position"
+            ></v-text-field>
+            <v-text-field
+              v-model="user.phone"
               name="Phone"
               outlined
               dense
               placeholder="Phone"
-            ></v-text-field>
-            <v-text-field
-              placeholder="Email"
-              outlined
-              dense
-              hide-details="auto"
             ></v-text-field>
             <span class="text-caption grey--text text--darken-1">
               This is the email you will use to login to your Vuetify account
@@ -36,16 +41,23 @@
         <v-window-item :value="2">
           <v-card-text>
             <v-text-field
+              v-model="user.password"
               placeholder="Password"
               outlined
               dense
-              type="password"
+              :type="showPass ? 'text' : 'password'"
+              :append-icon="showPass ? 'mdi-eye' : 'mdi-eye-off'"
+              :rules="passwordRules"
+              @click:append="showPass = !showPass"
             ></v-text-field>
             <v-text-field
               placeholder="Confirm Password"
-              type="password"
               outlined
               dense
+              :type="showPass ? 'text' : 'password'"
+              :append-icon="showPass ? 'mdi-eye' : 'mdi-eye-off'"
+              :rules="confirmPasswordRules"
+              @click:append="showPass = !showPass"
             ></v-text-field>
             <span class="text-caption grey--text text--darken-1">
               Please enter a password for your account
@@ -54,21 +66,26 @@
         </v-window-item>
 
         <v-window-item :value="3">
-          <div class="pa-4 text-center">
-            <v-img
-              class="mb-4"
-              contain
-              height="128"
-              src="https://cdn.vuetifyjs.com/images/logos/v.svg"
-            ></v-img>
-            <h3 class="text-h6 font-weight-light mb-2">Welcome to Vuetify</h3>
-            <span class="text-caption grey--text">Thanks for signing up!</span>
-          </div>
+          <v-card elevation="0">
+            <v-card-title>
+              <v-avatar size="200" class="mx-auto">
+                <v-img :src="user.image"></v-img>
+              </v-avatar>
+            </v-card-title>
+            <v-card-text class="mx-auto">
+              <v-btn color="primary" @click="getImage">Up Load Image</v-btn>
+            </v-card-text>
+            <v-card-title class="d-none">
+              <v-file-input
+                id="picture"
+                v-model="user.profile"
+                @change="onFileChange"
+              ></v-file-input>
+            </v-card-title>
+          </v-card>
         </v-window-item>
       </v-window>
-
       <v-divider></v-divider>
-
       <v-card-actions>
         <v-btn :disabled="step === 1" text @click="step--"> Back </v-btn>
         <v-spacer></v-spacer>
@@ -76,12 +93,17 @@
           :disabled="step === 3"
           color="primary"
           depressed
-          @click="step++"
           :class="step === 3 ? 'd-none' : ''"
+          @click="step++"
         >
           Next
         </v-btn>
-        <v-btn :class="step === 3 ? '' : 'd-none'" to="/signin" color="primary">Register</v-btn>
+        <v-btn
+          color="primary"
+          :class="step === 3 ? '' : 'd-none'"
+          @click="register"
+          >Register</v-btn
+        >
       </v-card-actions>
     </v-card>
   </v-container>
@@ -93,6 +115,16 @@ export default {
   layout: 'Blank',
   data: () => ({
     step: 1,
+    showPass: false,
+    comfirmPassword: '',
+    user: {
+      username: '',
+      password: '',
+      position: '',
+      phone: '',
+      profile: '',
+      role: 'user',
+    },
   }),
 
   computed: {
@@ -105,6 +137,34 @@ export default {
         default:
           return 'Choose Image'
       }
+    },
+    passwordRules() {
+      return [
+        (value) => !!value || 'Please type password.',
+        (value) => (value && value.length >= 6) || 'minimum 6 characters',
+      ]
+    },
+    confirmPasswordRules() {
+      return [
+        (value) => !!value || 'type confirm password',
+        (value) =>
+          value === this.user.password ||
+          'The password confirmation does not match.',
+      ]
+    },
+  },
+  methods: {
+    getImage() {
+      document.getElementById('picture').click()
+    },
+    onFileChange(e) {
+      if (e) {
+        this.url = URL.createObjectURL(e)
+        this.user.image = this.url
+      }
+    },
+    register() {
+      this.$store.dispatch('auth/SignUp', { ...this.user })
     },
   },
 }
