@@ -1,26 +1,31 @@
 <template>
   <v-container fluid>
     <v-row>
-      <v-col
-        v-for="data in [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]"
-        :key="data"
-        cols="12"
-        md="3"
-      >
-        <v-card class="mx-auto" max-width="250" hover to="/course/_id">
-          <v-img
-            height="200"
-            src="https://cdn.vuetifyjs.com/images/cards/cooking.png"
-          ></v-img>
-          <v-card-title>ການຂາຍ</v-card-title>
-          <v-card-text>
-            <div>
-              Small plates, salads & sandwiches - an intimate setting with 12
-              indoor seats plus patio seating.
-            </div>
-          </v-card-text>
+      <v-col v-for="data in video" :key="data" cols="12" md="3">
+        <v-card
+          class="mx-auto"
+          max-width="300"
+          hover
+          @click="OneCourse(data.video, data.title)"
+        >
+         
+            <video width="100%" controls>
+              <source
+                :src="`http://localhost:8080/${data.video}`"
+                type="video/mp4"
+              />
+              <source
+                :src="`http://localhost:8080/${data.video}`"
+                type="video/ogg"
+              />
+            </video>
+       
           <v-card-actions>
-            <v-btn color="primary    lighten-2" text> Reserve </v-btn>
+            <v-btn color="primary lighten-2" text> Learn </v-btn>
+            <v-spacer/>
+            <v-card-title>{{
+            !data.title ? 'not title' : data.title
+          }}</v-card-title>
           </v-card-actions>
         </v-card>
       </v-col>
@@ -29,5 +34,19 @@
 </template>
 
 <script>
-export default {}
+export default {
+  computed: {
+    video() {
+      return this.$store.state.rule.video
+    },
+  },
+  mounted() {
+    this.$store.dispatch('rule/getVideo')
+  },
+  methods: {
+    OneCourse(video, title) {
+      this.$router.push(`/course/video?name=${title}&video=${video}`)
+    },
+  },
+}
 </script>

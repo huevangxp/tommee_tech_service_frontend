@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">icanjob</string>
+    <string name="title_activity_main">icanjob</string>
+    <string name="package_name">com.icanjob</string>
+    <string name="custom_url_scheme">com.icanjob</string>
+</resources>

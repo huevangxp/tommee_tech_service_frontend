@@ -4,17 +4,24 @@ export const mutations = {}
 
 export const actions = {
   async SignUp({ commit }, data) {
-    const formData = new FormData()
-    formData.append('name', data.username)
-    formData.append('password', data.password)
-    formData.append('name', data.position)
-    formData.append('username', data.phone)
-    formData.append('profile', data.profile)
- await console.log(data);
-    await this.$axios.post(this.$config.apiUrl +'/signUp', data)
+    await this.$axios
+      .post(this.$config.apiUrl + '/signUp', data)
       .then((data) => {
-        console.log(data)
         this.$router.push('/signin')
+        this.$toast.success('Create user successfully')
       })
+  },
+  async SignIn({ commit }, data) {
+    await this.$axios
+      .post(this.$config.apiUrl + '/signIn', data)
+      .then((data) => {
+        this.$cookies.set('token', data.data.token)
+        this.$router.push('/')
+        this.$toast.success('Login user successfully')
+      })
+      .catch((err) => {
+        this.$toast.error('Password and Name Wrong...!')
+        return err
+    })
   },
 }

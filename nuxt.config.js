@@ -39,13 +39,22 @@ export default {
     '@nuxtjs/eslint-module',
     // https://go.nuxtjs.dev/vuetify
     '@nuxtjs/vuetify',
-  ],
 
+  ],
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
     '@nuxtjs/axios',
     'cookie-universal-nuxt',
-    '@nuxtjs/cloudinary'
+    [
+      '@nuxtjs/toast',
+      {
+        duration: 3000,
+        position: 'top-right',
+        iconPack: 'mdi',
+        type: 'error',
+        closeOnSwipe: false,
+      },
+    ],
   ],
 
   // Vuetify module configuration: https://go.nuxtjs.dev/config-vuetify
@@ -55,6 +64,7 @@ export default {
       dark: false,
       themes: {
         light: {
+          primary:colors.teal,
           accent: colors.blue.darken3,
           secondary: colors.amber.darken3,
           info: colors.teal.lighten1,
