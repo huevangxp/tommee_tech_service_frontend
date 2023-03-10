@@ -1,12 +1,12 @@
 <template>
-  <div
+  <div class="hidden-md-and-down"
     :style="{
       backgroundImage: `url(/images/gg.jpg)`,
       backgroundSize: 'cover',
       height: '100%',
     }"
   >
-    <v-container fluid class="mt-12 ml-10">
+    <v-container fluid class="mt-12" >
       <v-card class="mx-auto pa-10 mt-12" max-width="500" elevation="0">
         <v-card-title class="text-h6 font-weight-regular justify-space-between">
           <span>{{ currentTitle }}</span>
@@ -14,9 +14,7 @@
             color="primary lighten-2"
             class="subheading white--text"
             size="24"
-            :v-text="step"
-            >{{ step }}</v-avatar
-          >
+            :v-text="step">{{ step }}</v-avatar>
         </v-card-title>
         <v-window v-model="step">
           <v-window-item :value="1">

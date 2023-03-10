@@ -13,15 +13,17 @@ export const actions = {
   },
   async SignIn({ commit }, data) {
     await this.$axios
-      .post(this.$config.apiUrl + '/signIn', data)
+      .post("https://reqres.in/api/login", {
+        email: 'eve.holt@reqres.in',
+        password: 'cityslicka',
+      })
       .then((data) => {
         this.$cookies.set('token', data.data.token)
         this.$router.push('/')
         this.$toast.success('Login user successfully')
       })
       .catch((err) => {
-        this.$toast.error('Password and Name Wrong...!')
-        return err
-    })
+        return this.$toast.error(JSON.stringify(err))
+      })
   },
 }

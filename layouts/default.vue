@@ -10,7 +10,7 @@
             <v-img src="/logo.png"></v-img>
           </v-list-item-avatar>
           <v-list-item-content>
-            <v-list-item-title>John Leider</v-list-item-title>
+            <v-list-item-title>Hue Vang</v-list-item-title>
           </v-list-item-content>
           <v-btn icon @click="drawer = false">
             <v-icon>mdi-window-close</v-icon>
@@ -21,10 +21,18 @@
 
         <v-list-item router exact to="/profile">
           <v-list-item-action>
-            <v-icon color="primary">mdi-profile</v-icon>
+            <v-icon color="primary">mdi-information-outline</v-icon>
           </v-list-item-action>
           <v-list-item-content>
             <v-list-item-title>Profile</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+        <v-list-item router exact @click="logout">
+          <v-list-item-action>
+            <v-icon color="primary">mdi-power</v-icon>
+          </v-list-item-action>
+          <v-list-item-content>
+            <v-list-item-title>Logout</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
       </v-navigation-drawer>
@@ -58,7 +66,6 @@
             <span>Practice</span>
             <v-icon>mdi-play-circle</v-icon>
           </v-btn>
-
           <v-btn color="primary" text to="/role">
             <span>Rule</span>
             <v-icon>mdi-compass-rose</v-icon>
@@ -132,28 +139,6 @@ export default {
       sun: false,
       miniVariant: false,
       right: true,
-      items: [
-        {
-          icon: 'mdi-apps',
-          title: 'Home',
-          to: '/',
-        },
-        {
-          icon: 'mdi-chart-bubble',
-          title: 'Course',
-          to: '/course',
-        },
-        {
-          icon: 'mdi-file',
-          title: 'About',
-          to: '/about',
-        },
-        {
-          icon: 'mdi-compass-rose',
-          title: 'Role',
-          to: '/role',
-        },
-      ],
     }
   },
   mounted() {

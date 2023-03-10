@@ -1,9 +1,10 @@
 <template>
   <v-container fluid>
+    ==={{ $config.apiUrl }}===
     <v-row>
       <v-col cols="12" md="6" class="mt-10">
         <v-card elevation="0" max-width="400" class="mx-auto">
-          <v-card-title class="d-md-flex justify-md-center primary--text">
+          <v-card-title class="mb-10 d-md-flex justify-md-center primary--text">
             Welcome I Can Job
           </v-card-title>
           <v-card-text>
@@ -63,6 +64,7 @@ export default {
   },
   methods: {
     signIn() {
+      alert(JSON.stringify(this.user))
       this.$store.dispatch('auth/SignIn', { ...this.user })
     },
   },

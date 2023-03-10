@@ -26,6 +26,7 @@
         </activity>
 
         <provider
+            android:usesCleartextTraffic="true"
             android:name="androidx.core.content.FileProvider"
             android:authorities="${applicationId}.fileprovider"
             android:exported="false"
@@ -35,8 +36,5 @@
                 android:resource="@xml/file_paths"></meta-data>
         </provider>
     </application>
-
-    <!-- Permissions -->
-
-    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.INTERNET" android:usesCleartextTraffic="true"/>
 </manifest>

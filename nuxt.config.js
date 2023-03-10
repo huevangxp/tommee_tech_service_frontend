@@ -1,6 +1,7 @@
 import colors from 'vuetify/es5/util/colors'
 
 export default {
+  ssr:false,
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
     titleTemplate: '%s - icanjob',
@@ -21,9 +22,8 @@ export default {
   css: [],
 
   publicRuntimeConfig: {
-    apiUrl:'http://localhost:8080'
+    apiUrl:'http://192.168.214.173:8080'
   },
-
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
     { src: '~/plugins/darkModeCookie', mode: 'client' },
@@ -31,7 +31,9 @@ export default {
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: true,
 
-
+  axios: {
+    baseURL:"http://192.168.214.173:8080"
+  },
 
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
   buildModules: [
@@ -85,5 +87,10 @@ export default {
   },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
-  build: {},
+  build: {
+
+  },
+  server: {
+    host: '0.0.0.0'
+  }
 }

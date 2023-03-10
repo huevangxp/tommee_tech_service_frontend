@@ -1,7 +1,7 @@
 <template>
   <v-container fluid>
     <div class="pa-4">
-      <p class="text-h6">New Course</p>
+      <p class="text-h6">New File Document PDF</p>
       <v-divider />
     </div>
     <v-row>

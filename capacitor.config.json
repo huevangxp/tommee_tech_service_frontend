@@ -2,5 +2,10 @@
   "appId": "com.icanjob",
   "appName": "icanjob",
   "webDir": "dist",
-  "bundledWebRuntime": false
+  "bundledWebRuntime": true,
+  "server": {
+    "androidSchema":"http",
+    "allowNavigation": ["http://192.168.214.173:8080"]
+  }
 }
+

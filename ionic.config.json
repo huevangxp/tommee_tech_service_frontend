@@ -1,7 +1,14 @@
 {
   "name": "icanjob",
   "integrations": {
-    "capacitor": {}
+    "capacitor": {
+    }
+    
   },
-  "type": "custom"
+  "type": "custom",
+  "server": {
+    "androidSchema":"http",
+    "allowNavigation": ["http://192.168.214.173:8080"]
+  }
 }
+  
